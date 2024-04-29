@@ -1,0 +1,10 @@
+name: MultiChat
+version: '${version}'
+main: hw.zako.multichat.MultiChat
+api-version: '1.16'
+
+commands:
+  multichat:
+    permission: multichat.use
+    usage: /multichat [text]
+    aliases: ["mc"]
