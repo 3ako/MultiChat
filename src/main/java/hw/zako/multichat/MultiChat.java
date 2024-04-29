@@ -1,5 +1,6 @@
 package hw.zako.multichat;
 
+import hw.zako.multichat.command.MultiChatToggleCommand;
 import hw.zako.multichat.command.SendMessageCommand;
 import hw.zako.multichat.redis.RedisManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,6 +16,7 @@ public final class MultiChat extends JavaPlugin {
         redisManager = new RedisManager();
 
         getCommand("multichat").setExecutor(new SendMessageCommand(redisManager));
+        getCommand("multichattoggle").setExecutor(new MultiChatToggleCommand(redisManager));
     }
 
     @Override
