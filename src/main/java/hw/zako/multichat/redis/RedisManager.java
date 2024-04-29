@@ -1,6 +1,7 @@
 package hw.zako.multichat.redis;
 
 import hw.zako.multichat.Config;
+import hw.zako.multichat.command.MultiChatToggleCommand;
 import hw.zako.multichat.packet.MultiChatMessageEvent;
 import hw.zako.multichat.redis.packet.list.ChatMessagePacket;
 import io.lettuce.core.RedisClient;
@@ -18,8 +19,7 @@ public class RedisManager {
     private final RedisClient client;
     private final StatefulRedisConnection<String, String> connection;
     private final StatefulRedisPubSubConnection<String, String> pubSubConnection;
-    @Getter
-    public final HashMap<Player, Boolean> chatToggle = new HashMap<>();
+
 
     public RedisManager() {
         this.client = RedisClient.create("redis://"+ Config.redisConfig.host()+":"+Config.redisConfig.port());
@@ -39,7 +39,7 @@ public class RedisManager {
                         .replace("%sender%", event.getSender())
                         .replace("%message%", event.getMessage());
                 Bukkit.getOnlinePlayers().forEach(player -> {
-                    if (player.hasPermission(Config.chatUserPermission) && !chatToggle.containsKey(player)) {
+                    if (player.hasPermission(Config.chatUserPermission) && !MultiChatToggleCommand.getChatToggle().containsKey(player)) {
                         player.sendMessage(msg);
                     }
                 });

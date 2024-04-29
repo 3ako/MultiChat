@@ -3,16 +3,23 @@ package hw.zako.multichat.command;
 
 import hw.zako.multichat.redis.RedisManager;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+
 @AllArgsConstructor
 public class MultiChatToggleCommand implements CommandExecutor {
 
-    private final RedisManager redisManager;
+
+
+    @Getter
+    public static final HashMap<Player, Boolean> chatToggle = new HashMap<>();
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player)){
@@ -20,10 +27,10 @@ public class MultiChatToggleCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (redisManager.getChatToggle().containsKey(player)){
-            redisManager.getChatToggle().remove(player);
+        if (getChatToggle().containsKey(player)){
+            getChatToggle().remove(player);
         } else {
-            redisManager.getChatToggle().put(player, true);
+            getChatToggle().put(player, true);
         }
 
         return true;

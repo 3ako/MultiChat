@@ -16,7 +16,7 @@ public final class MultiChat extends JavaPlugin {
         redisManager = new RedisManager();
 
         getCommand("multichat").setExecutor(new SendMessageCommand(redisManager));
-        getCommand("multichattoggle").setExecutor(new MultiChatToggleCommand(redisManager));
+        getCommand("multichattoggle").setExecutor(new MultiChatToggleCommand());
     }
 
     @Override
