@@ -17,9 +17,8 @@ import java.util.HashMap;
 public class MultiChatToggleCommand implements CommandExecutor {
 
 
+    private final RedisManager redisManager;
 
-    @Getter
-    public static final HashMap<Player, Boolean> chatToggle = new HashMap<>();
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player)){
@@ -27,11 +26,7 @@ public class MultiChatToggleCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (getChatToggle().containsKey(player)){
-            getChatToggle().remove(player);
-        } else {
-            getChatToggle().put(player, true);
-        }
+        redisManager.setChatToggle(player);
 
         return true;
     }
