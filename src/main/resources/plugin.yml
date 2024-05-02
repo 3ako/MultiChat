@@ -8,3 +8,6 @@ commands:
     permission: multichat.use
     usage: /multichat [text]
     aliases: ["mc"]
+  multichattoggle:
+    usage: /multichattoggle
+    aliases: ["mctoggle"]
