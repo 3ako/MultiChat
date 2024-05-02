@@ -26,6 +26,7 @@ public class MultiChatToggleCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
+        sender.sendMessage(ChatColor.GREEN + "Успешно");
         redisManager.setChatToggle(player);
 
         return true;
