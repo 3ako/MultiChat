@@ -17,9 +17,13 @@ public class Config {
        parseRedis(redisSection);
 
        chatFormat = file.getString("chat-format");
+       chatOn = file.getString("chat-on");
+       chatOff = file.getString("chat-off");
     }
 
     public static String chatFormat;
+    public static String chatOn;
+    public static String chatOff;
     private static void parseRedis(ConfigurationSection section) {
         final String host = section.getString("host");
         final int port = section.getInt("port");

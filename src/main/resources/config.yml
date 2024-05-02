@@ -1,5 +1,8 @@
 chat-permission: "multichat.use"
 chat-format: "%sender%: %message%"
+chat-on: "Чат §aвключён"
+chat-of: "Чат §cвыключен"
+
 redis:
   host: "127.0.0.1"
   port: 6379
