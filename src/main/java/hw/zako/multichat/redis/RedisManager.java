@@ -1,21 +1,19 @@
 package hw.zako.multichat.redis;
 
 import hw.zako.multichat.Config;
-import hw.zako.multichat.command.MultiChatToggleCommand;
-import hw.zako.multichat.packet.MultiChatMessageEvent;
+import hw.zako.multichat.events.MultiChatMessageEvent;
 import hw.zako.multichat.redis.packet.list.ChatMessagePacket;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
 public class RedisManager {
-    private static final String channel = "MULTICHAT_CHAT";
+    private static final String CHANNEL = "MULTICHAT_CHAT";
     private final RedisClient client;
     private final StatefulRedisConnection<String, String> connection;
     private final StatefulRedisPubSubConnection<String, String> pubSubConnection;
@@ -49,7 +47,7 @@ public class RedisManager {
             }
         });
 
-        pubSubConnection.async().subscribe(channel);
+        pubSubConnection.async().subscribe(CHANNEL);
     }
 
     public void unload() {
@@ -60,7 +58,7 @@ public class RedisManager {
         RedisAsyncCommands<String, String> commands = connection.async();
         final var packet = new ChatMessagePacket(sender, message);
         packet.write();
-        commands.publish(channel, packet.getSource());
+        commands.publish(CHANNEL, packet.getSource());
     }
 
     public boolean isChatToggle(Player player){

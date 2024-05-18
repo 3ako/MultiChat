@@ -1,4 +1,4 @@
-package hw.zako.multichat.packet;
+package hw.zako.multichat.events;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +15,8 @@ public class MultiChatMessageEvent extends Event implements Cancellable {
     public @NotNull HandlerList getHandlers() {
         return handlers;
     }
+    
+    @SuppressWarnings("unused")
     public static HandlerList getHandlerList() {
         return handlers;
     }
