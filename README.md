@@ -1,14 +1,30 @@
-## MultiChat
-# Межсерверный чат для Игроков!! Длдя работы требуется Redis!!
+# MultiChat - плагин, добавляющий межсерверный чат!
 
-Супер оптимизированнный межсервенный чат
-Для своей работы он использует базу данных Redis
+## Для работы требуется Redis!
 
 # Команды:
-/multichat <message> - оснавная комманда для отправки сообщения
-/multichattoggle - Для включение или выключение чата
+`/multichat <message>` - оснавная комманда для отправки сообщения
+
+`/multichattoggle` - Для включение или выключение чата
 
 # Права
 multichat.use - для использование чата
 
-Dev by Zako, Smoup, alexec0de, temaosukov
+# config.yml
+```
+chat-permission: "multichat.use"
+chat-format: "%sender%: %message%"
+chat-on: "Чат §aвключён"
+chat-of: "Чат §cвыключен"
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  timeout: 3000
+```
+
+# Разработчики
+* <a href="https://github.com/3ako">@3ako</a></h2>
+* <a href="https://github.com/Smoup">@Smoup</a></h2>
+* <a href="https://github.com/alexec0de">@alexec0de</a></h2>
+* <a href="https://github.com/temaosukov">@temaosukov</a></h2>
