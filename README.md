@@ -15,7 +15,8 @@ multichat.use - для использование чата
 chat-permission: "multichat.use"
 chat-format: "%sender%: %message%"
 chat-on: "Чат §aвключён"
-chat-of: "Чат §cвыключен"
+chat-off: "Чат §cвыключен"
+chatOnlyPlayers: "§cИспользовать мультичат может только игрок!"
 
 redis:
   host: "127.0.0.1"

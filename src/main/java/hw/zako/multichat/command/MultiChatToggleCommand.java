@@ -23,7 +23,7 @@ public class MultiChatToggleCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player p)){
-            sender.sendMessage(ChatColor.RED + "Эту команду можно выполнить только в игре");
+            sender.sendMessage(Config.chatOnlyPlayers);
             return true;
         }
 
