@@ -15,13 +15,13 @@ public class SendMessageCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length < 1) return false;
 
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         for (String arg: args) {
             sb.append(arg)
                     .append(" ");
         }
 
-        redisManager.sendMessage(sender.getName(), sb.toString());
+        redisManager.sendMessage(sender.getName(), sb.toString().trim());
         return true;
     }
 }

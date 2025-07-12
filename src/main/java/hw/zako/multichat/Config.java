@@ -1,5 +1,7 @@
 package hw.zako.multichat;
 
+import hw.zako.multichat.exception.ConfigSectionInvalid;
+import hw.zako.multichat.util.Colorizer;
 import lombok.experimental.UtilityClass;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -7,33 +9,43 @@ import org.bukkit.permissions.Permission;
 
 @UtilityClass
 public class Config {
-    public static void load(FileConfiguration file) {
-        chatUserPermission = new Permission(file.getString("chat-permission"));
 
-       final ConfigurationSection redisSection = file.getConfigurationSection("redis");
-       if (redisSection == null) {
-           throw new IllegalStateException("Redis config is invalid");
-       }
-       parseRedis(redisSection);
+    private FileConfiguration file;
 
-       chatFormat = file.getString("chat-format");
-       chatOn = file.getString("chat-on");
-       chatOff = file.getString("chat-off");
+    public void load(FileConfiguration config) {
+        file = config;
+
+       parseRedis();
+       parseMultiChat();
     }
 
-    public static String chatFormat;
-    public static String chatOn;
-    public static String chatOff;
-    private static void parseRedis(ConfigurationSection section) {
-        final String host = section.getString("host");
-        final int port = section.getInt("port");
-        final int timeout = section.getInt("timeout");
+    private void parseRedis() {
+        final ConfigurationSection redisSection = file.getConfigurationSection("redis");
+        if (redisSection == null) throw new ConfigSectionInvalid("Redis");
+
+        final String host = redisSection.getString("host");
+        final int port = redisSection.getInt("port");
+        final int timeout = redisSection.getInt("timeout");
+
         redisConfig = new RedisConfig(host, port, timeout);
     }
 
-    public static RedisConfig redisConfig;
-    public static Permission chatUserPermission;
+    private void parseMultiChat() {
+        final ConfigurationSection multiChatSection = file.getConfigurationSection("multi-chat");
+        if (multiChatSection == null) throw new ConfigSectionInvalid("Multi-chat");
 
-    public record RedisConfig(String host, int port, int timeout) {
+        MULTICHAT.permissionUse = new Permission(multiChatSection.getString("permission-use"));
+        MULTICHAT.format = Colorizer.use(multiChatSection.getString("format"));
+        MULTICHAT.on = Colorizer.use(multiChatSection.getString("on"));
+        MULTICHAT.off = Colorizer.use(multiChatSection.getString("off"));
+    }
+
+    public RedisConfig redisConfig;
+    public record RedisConfig(String host, int port, int timeout) {}
+
+    @UtilityClass
+    public class MULTICHAT {
+        public Permission permissionUse;
+        public String format, on, off;
     }
 }
