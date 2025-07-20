@@ -1,4 +1,3 @@
-// dev by alexec0de
 package hw.zako.multichat.command;
 
 import hw.zako.multichat.Config;
@@ -17,20 +16,19 @@ import java.util.HashMap;
 @AllArgsConstructor
 public class MultiChatToggleCommand implements CommandExecutor {
 
-
     private final RedisManager redisManager;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player p)){
-            sender.sendMessage(ChatColor.RED + "Эту команду можно выполнить только в игре");
+            sender.sendMessage(ChatColor.RED + "Команда для игроков");
             return true;
         }
 
         if (redisManager.isChatToggle(p)){
-            sender.sendMessage(Config.chatOff);
+            sender.sendMessage(Config.MULTICHAT.off);
         } else {
-            sender.sendMessage(Config.chatOn);
+            sender.sendMessage(Config.MULTICHAT.on);
         }
         redisManager.setChatToggle(p);
 

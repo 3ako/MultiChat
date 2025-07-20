@@ -1,9 +1,10 @@
-chat-permission: "multichat.use"
-chat-format: "%sender%: %message%"
-chat-on: "Чат §aвключён"
-chat-of: "Чат §cвыключен"
-
 redis:
   host: "127.0.0.1"
   port: 6379
   timeout: 3000
+
+multi-chat:
+  permission-use: "multichat.use"
+  format: "{sender}: {message}"
+  on: "Видимость чата &aвключена"
+  off: "Видимость чата &cвыключена"
